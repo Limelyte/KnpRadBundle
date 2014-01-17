@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="knp_rad.twig.table.class">Knp\RadBundle\Twig\TableExtension</parameter>
+        <parameter key="knp_rad.table.factory.class">Knp\RadBundle\Table\TableFactory</parameter>
+    </parameters>
+
+    <services>
+        <service id="knp_rad.table.factory" class="%knp_rad.table.factory.class%">
+        </service>
+        <service id="knp_rad.twig.table" class="%knp_rad.twig.table.class%">
+            <argument type="service" id="knp_rad.table.factory" />
+            <tag name="twig.extension" />
+        </service>
+    </services>
+
+</container>
