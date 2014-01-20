@@ -19,6 +19,7 @@ class TableView
     public function addHeader(NodeView $header)
     {
         $this->headers[] = $header;
+        $header->setTable($this);
     }
 
     public function addRow(array $row)
