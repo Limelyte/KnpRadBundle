@@ -59,13 +59,13 @@ class TableView extends NodeView
 
     public function getRenderedBlockNames()
     {
-        $names = array(
-            sprintf('_%s', $this->config['tag']),
-        );
+        $names = array();
 
         if (null !== $this->name) {
             $names[] = sprintf('_%s_%s', $this->config['tag'], $this->name);
         }
+
+        $names[] = sprintf('_%s', $this->config['tag']);
 
         return $names;
     }
