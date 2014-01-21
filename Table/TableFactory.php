@@ -11,18 +11,18 @@ class TableFactory
         $table = new TableView($config['name'], $items, $mapping);
 
         foreach ($mapping as $key => $label) {
-            $node = new NodeView($key, null, array_merge($config, array('label' => $label)));
+            $node = new NodeView($key, array_merge($config, array('label' => $label, 'tag' => 'th')));
 
             $table->addHeader($node);
         }
 
         foreach ($items as $item) {
-            $row = array();
+            $row = new RowView('body', $item, $config);
 
             foreach ($mapping as $key => $label) {
-                $node = new NodeView($key, $item, array_merge($config, array('label' => $label)));
+                $node = new NodeView($key, array_merge($config, array('label' => $label)));
 
-                $row[] = $node;
+                $row->add($node);
             }
 
             $table->addRow($row);
@@ -34,7 +34,7 @@ class TableFactory
     protected function getDefaultConfig()
     {
         return array(
-            'name' => '',
+            'name' => null
         );
     }
 }

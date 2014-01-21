@@ -21,7 +21,13 @@ class TableExtension extends \Twig_Extension
     public function renderTable($items, array $mapping, array $config = array())
     {
         $table = $this->tableFactory->create($items, $mapping, $config);
-        die(var_dump($table));
+
+        $rows = $table->getRows();
+        $nodes = $rows[10]->getNodes();
+        $headers = $table->getHeaders()->getNodes();
+
+        var_dump($headers[0]->getRenderedBlockNames());
+        var_dump($nodes[1]->getRenderedBlockNames());
     }
 
     public function getName()

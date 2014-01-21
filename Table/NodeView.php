@@ -2,22 +2,55 @@
 
 namespace Knp\RadBundle\Table;
 
-class NodeView
+class NodeView implements NodeViewInterface
 {
     protected $id;
-    protected $item;
     protected $config;
-    protected $table;
+    protected $parent;
 
-    public function __construct($id, $item = null, array $config = array())
+    public function __construct($id, array $config = array())
     {
        $this->id     = $id;
-       $this->item   = $item;
-       $this->config = $config;
+       $this->config = array_merge($config, $this->getDefaultConfig());
     }
 
-    public function setTable(TableView $table)
+    public function getParent()
     {
-        $this->table = $table;
+        return $this->parent;
+    }
+
+    public function setParent(NodeViewInterface $parent)
+    {
+        $this->parent = $parent;
+    }
+
+    public function getItem()
+    {
+        return $this->parent->getItem();
+    }
+
+    public function getRenderedBlockNames()
+    {
+        $suffixes = array(
+            sprintf('%s_%s', $this->config['tag'], str_replace('.', '_', strtolower($this->id))),
+            $this->config['tag'],
+        );
+
+        $names = array();
+
+        foreach ($suffixes as $suffixe) {
+            foreach ($this->parent->getRenderedBlockNames() as $name) {
+                $names[] = sprintf('%s_%s', $name, $suffixe);
+            }
+        }
+
+        return $names;
+    }
+
+    protected function getDefaultConfig()
+    {
+        return array(
+            'tag' => 'td',
+        );
     }
 }
