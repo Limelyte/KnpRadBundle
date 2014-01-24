@@ -15,7 +15,7 @@ class TableView extends NodeView
 
         $this->name    = $name;
         $this->items   = $items;
-        $this->headers = new RowView('head');
+        $this->headers = new RowView('header');
         $this->rows    = array();
 
         $this->headers->setParent($this);
@@ -57,15 +57,15 @@ class TableView extends NodeView
         return $this->items;
     }
 
-    public function getRenderedBlockNames()
+    protected function getBlockSuffixes()
     {
         $names = array();
 
         if (null !== $this->name) {
-            $names[] = sprintf('_%s_%s', $this->config['tag'], $this->name);
+            $names[] = $this->name;
         }
 
-        $names[] = sprintf('_%s', $this->config['tag']);
+        $names[] = $this->config['tag'];
 
         return $names;
     }

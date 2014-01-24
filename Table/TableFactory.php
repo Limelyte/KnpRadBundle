@@ -17,7 +17,7 @@ class TableFactory
         }
 
         foreach ($items as $item) {
-            $row = new RowView('body', $item, $config);
+            $row = new RowView('item', $item, $config);
 
             foreach ($mapping as $key => $label) {
                 $node = new NodeView($key, array_merge($config, array('label' => $label)));

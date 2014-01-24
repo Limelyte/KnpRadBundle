@@ -31,6 +31,12 @@ class RowView extends NodeView
         return $this->item;
     }
 
+    protected function getBlockSuffixes()
+    {
+        return array( $this->id );
+    }
+
+
     protected function getDefaultConfig()
     {
         return array(
