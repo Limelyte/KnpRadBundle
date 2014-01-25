@@ -11,6 +11,13 @@ class TableExtension extends \Twig_Extension
         $this->tableFactory = $tableFactory;
     }
 
+    public function getTokenParsers()
+    {
+        return array(
+            new TableTokenParser,
+        );
+    }
+
     public function getFunctions()
     {
         return array(
