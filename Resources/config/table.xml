@@ -7,13 +7,17 @@
     <parameters>
         <parameter key="knp_rad.twig.table.class">Knp\RadBundle\Twig\TableExtension</parameter>
         <parameter key="knp_rad.table.factory.class">Knp\RadBundle\Table\TableFactory</parameter>
+        <parameter key="knp_rad.table.renderer.class">Knp\RadBundle\Table\TableRenderer</parameter>
     </parameters>
 
     <services>
-        <service id="knp_rad.table.factory" class="%knp_rad.table.factory.class%">
-        </service>
+        <service id="knp_rad.table.factory" class="%knp_rad.table.factory.class%"></service>
+        <service id="knp_rad.table.renderer" class="%knp_rad.table.renderer.class%"></service>
         <service id="knp_rad.twig.table" class="%knp_rad.twig.table.class%">
             <argument type="service" id="knp_rad.table.factory" />
+            <argument type="service" id="knp_rad.table.renderer" />
+            <argument type="service" id="twig" />
+            <argument type="service" id="property_accessor" />
             <tag name="twig.extension" />
         </service>
     </services>

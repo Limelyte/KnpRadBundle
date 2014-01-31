@@ -2,7 +2,7 @@
 
 namespace Knp\RadBundle\Table;
 
-class RowView extends NodeView
+class RowView extends NodeView implements \IteratorAggregate
 {
     protected $nodes;
 
@@ -34,6 +34,10 @@ class RowView extends NodeView
         foreach ($this->nodes as $node) {
             $node->compute();
         }
+    }
+
+    public function getIterator() {
+        return new \ArrayIterator($this->nodes);
     }
 
     protected function getBlockSuffixes()

@@ -35,6 +35,10 @@ class NodeView implements NodeViewInterface
     public function compute()
     {
         $this->vars['blocks'] = $this->getRenderedBlockNames();
+
+        if (null !== $this->parent) {
+            $this->vars = array_merge($this->parent->getVars(), $this->vars);
+        }
     }
 
     public function getVars()

@@ -1,0 +1,9 @@
+{% extends 'KnpRadBundle:Twig/Table:base.html.twig' %}
+
+{% block _table_outter %}
+{% spaceless %}
+<table class="table">
+    {{ knp_table_inner(node) }}
+</table>
+{% endspaceless %}
+{% endblock _table_outter %}
