@@ -4,14 +4,16 @@ namespace Knp\RadBundle\Table;
 
 class NodeView implements NodeViewInterface
 {
-    protected $id;
-    protected $config;
     protected $parent;
+    protected $vars;
 
     public function __construct($id, array $config = array())
     {
-       $this->id     = $id;
-       $this->config = array_merge($this->getDefaultConfig(), $config);
+        $this->vars = array_merge(
+            $this->getDefaultConfig(),
+            array('id' => $id),
+            $config
+        );
     }
 
     public function getParent()
@@ -22,14 +24,25 @@ class NodeView implements NodeViewInterface
     public function setParent(NodeViewInterface $parent)
     {
         $this->parent = $parent;
+        $this->vars['data'] = $this->parent->getData();
     }
 
-    public function getItem()
+    public function getData()
     {
-        return $this->parent->getItem();
+        return $this->vars['data'];
     }
 
-    public function getRenderedBlockNames()
+    public function compute()
+    {
+        $this->vars['blocks'] = $this->getRenderedBlockNames();
+    }
+
+    public function getVars()
+    {
+        return $this->vars;
+    }
+
+    protected function getRenderedBlockNames()
     {
         $names = array();
 
@@ -49,8 +62,8 @@ class NodeView implements NodeViewInterface
     protected function getBlockSuffixes()
     {
         return array(
-            str_replace('.', '_', strtolower($this->id)),
-            $this->config['tag'],
+            str_replace('.', '_', strtolower($this->vars['id'])),
+            $this->vars['tag'],
         );
     }
 

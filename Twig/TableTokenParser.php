@@ -13,7 +13,6 @@ class TableTokenParser extends Twig_TokenParser
         $exprParser = $this->parser->getExpressionParser();
 
         $expr = $this->parser->getExpressionParser()->parseExpression();
-        die(var_dump($expr));
         return null;
     }
 

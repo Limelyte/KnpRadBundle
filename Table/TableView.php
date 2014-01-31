@@ -4,17 +4,16 @@ namespace Knp\RadBundle\Table;
 
 class TableView extends NodeView
 {
-    protected $name;
     protected $headers;
     protected $rows;
-    protected $items;
 
     public function __construct($name, $items, $mapping)
     {
-        parent::__construct('table', array('mapping' => $mapping));
+        parent::__construct(
+            'table',
+            array('mapping' => $mapping, 'data' => $items, 'name' => $name)
+        );
 
-        $this->name    = $name;
-        $this->items   = $items;
         $this->headers = new RowView('header');
         $this->rows    = array();
 
@@ -42,30 +41,31 @@ class TableView extends NodeView
         $this->rows[] = $row;
     }
 
-    public function getItem()
-    {
-        return null;
-    }
-
     public function getParent()
     {
         return null;
     }
 
-    public function getItems()
+    public function compute()
     {
-        return $this->items;
+        parent::compute();
+
+        $this->headers->compute();
+
+        foreach ($this->rows as $row) {
+            $row->compute();
+        }
     }
 
     protected function getBlockSuffixes()
     {
         $names = array();
 
-        if (null !== $this->name) {
-            $names[] = $this->name;
+        if (!empty($this->vars['name'])) {
+            $names[] = $this->vars['name'];
         }
 
-        $names[] = $this->config['tag'];
+        $names[] = $this->vars['tag'];
 
         return $names;
     }

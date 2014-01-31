@@ -5,13 +5,14 @@ namespace Knp\RadBundle\Table;
 class RowView extends NodeView
 {
     protected $nodes;
-    protected $item;
 
     public function __construct($id, $item = null, array $config = array())
     {
-        parent::__construct($id, $config);
+        parent::__construct(
+            $id,
+            array_merge(array('data' => $item), $config)
+        );
 
-        $this->item  = $item;
         $this->nodes = array();
     }
 
@@ -26,14 +27,18 @@ class RowView extends NodeView
         return $this->nodes;
     }
 
-    public function getItem()
+    public function compute()
     {
-        return $this->item;
+        parent::compute();
+
+        foreach ($this->nodes as $node) {
+            $node->compute();
+        }
     }
 
     protected function getBlockSuffixes()
     {
-        return array( $this->id );
+        return array( $this->vars['id'] );
     }
 
 
