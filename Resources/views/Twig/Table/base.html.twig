@@ -1,9 +1,13 @@
-{% block _table_outter %}
+{% block _node_outter %}
 {% spaceless %}
-<table>
+{{ ('<' ~ node.vars.tag ~ ' name="' ~ node.vars.blocks[0] ~ '">')|raw }}
     {{ knp_table_inner(node) }}
-</table>
+{{ ('</' ~ node.vars.tag ~ '>')|raw }}
 {% endspaceless %}
+{% endblock _node_outter %}
+
+{% block _table_outter %}
+{{ block('_node_outter') }}
 {% endblock _table_outter %}
 
 {% block _table_inner %}
@@ -20,11 +24,7 @@
 {% endblock _table_inner %}
 
 {% block _table_header_outter %}
-{% spaceless %}
-<tr>
-    {{ knp_table_inner(node) }}
-</tr>
-{% endspaceless %}
+{{ block('_node_outter') }}
 {% endblock _table_header_outter %}
 
 {% block _table_header_inner %}
@@ -36,11 +36,7 @@
 {% endblock _table_header_inner %}
 
 {% block _table_header_th_outter %}
-{% spaceless %}
-<th>
-    {{ knp_table_inner(node) }}
-</th>
-{% endspaceless %}
+{{ block('_node_outter') }}
 {% endblock _table_header_th_outter %}
 
 {% block _table_header_th_inner %}
@@ -50,11 +46,7 @@
 {% endblock _table_header_th_inner %}
 
 {% block _table_item_outter %}
-{% spaceless %}
-<tr>
-    {{ knp_table_inner(node) }}
-</tr>
-{% endspaceless %}
+{{ block('_node_outter') }}
 {% endblock _table_item_outter %}
 
 {% block _table_item_inner %}
@@ -66,11 +58,7 @@
 {% endblock _table_item_inner %}
 
 {% block _table_item_td_outter %}
-{% spaceless %}
-<td>
-    {{ knp_table_inner(node) }}
-</td>
-{% endspaceless %}
+{{ block('_node_outter') }}
 {% endblock _table_item_td_outter %}
 
 {% block _table_item_td_inner %}
