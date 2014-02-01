@@ -24,6 +24,18 @@ class TableRenderer
             $rendering = $this->buildRendering($node, $theme, $side);
         }
 
+        if (null === $rendering) {
+            throw new TableBlockRenderingException(sprintf(
+                'Unable to find block to render %s of a %s element. Please add one of these blocks : "%s"',
+                $side,
+                $vars['tag'],
+                implode(
+                    array_map(function ($e) use ($side) { return sprintf('%s_%s', $e, $side); }, $vars['blocks']),
+                    '", "'
+                )
+            ));
+        }
+
         return $rendering;
     }
 
